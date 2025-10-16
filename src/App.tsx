@@ -1,19 +1,25 @@
-import {
-    AcademicCapIcon
-} from "@heroicons/react/24/solid";
-import Button
-    from "./Components/Buttons/Button.tsx";
-import IconButton from "./Components/Buttons/IconButton.tsx";
-
+import { Provider } from "react-redux";
+import { store } from "./State/Store";
+import Index from "./Pages/Index/Index";
+import { Toaster } from "react-hot-toast";
+import AuthWrapper from "./Components/AuthWrapper/AuthWrapper";
+import IconButton from "./Components/Buttons/IconButton";
 
 export default function App() {
-    return (
-        <>
-            <Button className={"text-yellow-500"} text={"test"} variant={"info"}/>
+  return (
+    <>
+      <IconButton variant="accent" text="sds" />
+    </>
+  );
 
-            <IconButton text={"sd"} variant={"primary"} size={""}/>
-
-
-        </>
-    );
+  return (
+    <>
+      <Provider store={store}>
+        <AuthWrapper>
+          <Index />
+          <Toaster />
+        </AuthWrapper>
+      </Provider>
+    </>
+  );
 }
