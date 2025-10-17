@@ -1,28 +1,41 @@
+import React from "react";
 import clsx from "clsx";
-import { ButtonTypes } from "./ButtonTypes.ts";
-import { type ReactNode, type ButtonHTMLAttributes } from "react";
+import { ButtonIconSizes, ButtonSizes, ButtonVariants } from "./ButtonHelpers";
 
-type PropTypes = {
-  text: string;
-  variant?: keyof typeof ButtonTypes;
-  render?: ReactNode;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  text?: string;
+  icon?: IconComponent;
+  size?: "xs" | "sm" | "md" | "lg";
+  variant?: ButtonVariants;
+  textClassName?: string;
+  iconClassName?: string;
+}
 
 export default function Button({
   text,
+  icon: Icon,
+  size = "md",
   variant,
-  render,
-  className,
-  ...props
-}: PropTypes) {
+  iconClassName = "",
+  textClassName = "",
+  className = "",
+  ...rest
+}: ButtonProps) {
   return (
     <button
-      type="button"
-      className={clsx("btn", variant && ButtonTypes[variant], className)}
-      {...props}
+      className={clsx(
+        "btn",
+        variant && ButtonVariants[variant],
+        ButtonSizes[size],
+        className
+      )}
+      {...rest}
     >
-      {text}
-      {render}
+      {Icon && <Icon className={clsx(ButtonIconSizes[size], iconClassName)} />}
+      {text && <span className={clsx("ml-0", textClassName)}>{text}</span>}
     </button>
   );
 }

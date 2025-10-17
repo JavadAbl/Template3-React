@@ -1,16 +1,13 @@
 export type UserState = {
   user: User | null;
-  token: string | null;
+  accessToken: string | null;
+  refreshToken: string | null;
+  tokenObject: any | null;
+  isAuth: boolean;
+  loginStep: number;
 };
 
 export type User = {
   id: number;
   name: string;
 };
-
-export interface Post {
-  userId: number;
-  id: number;
-  title: string;
-  body: string;
-}

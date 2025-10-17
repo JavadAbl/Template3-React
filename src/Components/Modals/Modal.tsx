@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import IconButton from "../Buttons/IconButton";
+import IconButton from "../Buttons/Button";
 
 // Props interface remains the same
 export interface ModalProps {

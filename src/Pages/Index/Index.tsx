@@ -1,18 +1,16 @@
-import { useEffect } from "react";
-import { useAppDispatch } from "../../Hooks/StateHooks";
-import type { User } from "../../Features/User/UserTypes";
-import { userActions } from "../../Features/User/UserSlice";
+import Loading from "../../Components/Indicators/Loading";
+import { useAppSelector } from "../../Hooks/StateHooks";
+import Home from "../Home/Home";
 
 export default function Index() {
-  const dispatch = useAppDispatch();
+  const isAuth = useAppSelector((s) => s.user.isAuth);
 
-  useEffect(() => {
-    // Simulate logging in
-    const dummyUser: User = { id: 1, name: "John Doe" };
-    dispatch(
-      userActions.setCredentials({ user: dummyUser, token: "fake-jwt-token" })
-    );
-  }, [dispatch]);
-
-  return <div></div>;
+  if (!isAuth) {
+    return <Loading />;
+  }
+  return (
+    <>
+      <Home />
+    </>
+  );
 }

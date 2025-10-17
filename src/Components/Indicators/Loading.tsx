@@ -1,49 +1,49 @@
 import { type HTMLAttributes } from "react";
 import { DaisyUIColors } from "../../Utils/DaisyUiUtils";
 
-enum DaisyUIColor {
-  Primary = "primary",
-  Secondary = "secondary",
-  Accent = "accent",
-  Info = "info",
-  Success = "success",
-  Warning = "warning",
-  Error = "error",
-  Neutral = "neutral",
-}
+/* const DaisyUIColor = {
+  Primary: "primary",
+  Secondary: "secondary",
+  Accent: "accent",
+  Info: "info",
+  Success: "success",
+  Warning: "warning",
+  Error: "error",
+  Neutral: "neutral",
+} as const; */
 
-export enum DaisyUILoadingSize {
-  XS = "loading-xs",
-  SM = "loading-sm",
-  MD = "loading-md",
-  LG = "loading-lg",
-  XL = "loading-xl",
-}
+const DaisyUILoadingSize = {
+  XS: "loading-xs",
+  SM: "loading-sm",
+  MD: "loading-md",
+  LG: "loading-lg",
+  XL: "loading-xl",
+} as const;
 
-export enum DaisyUILoaderType {
-  Spinner = "loading-spinner",
-  Ring = "loading-ring",
-  Dots = "loading-dots",
-  Bars = "loading-bars",
-  Infinity = "loading-infinity", // if installed via plugin or custom
-}
+const DaisyUILoaderType = {
+  Spinner: "loading-spinner",
+  Ring: "loading-ring",
+  Dots: "loading-dots",
+  Bars: "loading-bars",
+  Infinity: "loading-infinity", // if installed via plugin or custom
+} as const;
 
-export enum TextSize {
-  XS = "text-xs",
-  SM = "text-sm",
-  Base = "text-base",
-  LG = "text-lg",
-  XL = "text-xl",
-  XXL = "text-2xl",
-}
+const TextSize = {
+  XS: "text-xs",
+  SM: "text-sm",
+  Base: "text-base",
+  LG: "text-lg",
+  XL: "text-xl",
+  XXL: "text-2xl",
+} as const;
 
 interface LoadingProps extends HTMLAttributes<HTMLDivElement> {
   text?: string;
   ringColor?: DaisyUIColors;
   textColor?: DaisyUIColors;
-  size?: DaisyUILoadingSize;
-  loaderType?: DaisyUILoaderType;
-  textSize?: TextSize;
+  size?: keyof typeof DaisyUILoadingSize;
+  loaderType?: keyof typeof DaisyUILoaderType;
+  textSize?: keyof typeof TextSize;
   className?: string;
 }
 
@@ -51,15 +51,15 @@ export default function Loading({
   text = "در حال بارگذاری...",
   ringColor = DaisyUIColors.primary,
   textColor = DaisyUIColors.primary,
-  size = DaisyUILoadingSize.LG,
-  loaderType = DaisyUILoaderType.Ring,
-  textSize = TextSize.Base,
+  size = "LG",
+  loaderType = "Ring",
+  textSize = "Base",
   className = "",
   ...rest
 }: LoadingProps) {
   return (
     <div
-      className={`flex flex-col items-center justify-center w-full h-full gap-3 ${className}`}
+      className={`flex flex-col items-center justify-center w-full h-screen gap-3 ${className}`}
       {...rest}
     >
       <span className={`loading ${loaderType} text-${ringColor} ${size}`} />

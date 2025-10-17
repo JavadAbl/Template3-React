@@ -1,12 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "../Home/Home";
+import { Route, Routes } from "react-router";
+import Login from "../Login/Login";
+import Index from "./Index";
 
 export default function AppRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/Login" element={<Login />} />
+    </Routes>
   );
 }

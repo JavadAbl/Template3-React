@@ -3,23 +3,22 @@ import { store } from "./State/Store";
 import Index from "./Pages/Index/Index";
 import { Toaster } from "react-hot-toast";
 import AuthWrapper from "./Components/AuthWrapper/AuthWrapper";
-import IconButton from "./Components/Buttons/IconButton";
+import { BrowserRouter } from "react-router";
+import AppRoutes from "./Pages/Index/AppRoutes";
 
 export default function App() {
   return (
     <>
-      <IconButton variant="accent" text="sds" />
-    </>
-  );
-
-  return (
-    <>
-      <Provider store={store}>
-        <AuthWrapper>
-          <Index />
-          <Toaster />
-        </AuthWrapper>
-      </Provider>
+      <div className="min-h-screen">
+        <Provider store={store}>
+          <BrowserRouter>
+            <AuthWrapper>
+              <AppRoutes />
+              <Toaster />
+            </AuthWrapper>
+          </BrowserRouter>
+        </Provider>
+      </div>
     </>
   );
 }

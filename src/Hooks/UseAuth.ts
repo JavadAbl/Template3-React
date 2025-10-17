@@ -1,22 +1,30 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router";
+import { useAppDispatch } from "./StateHooks";
+import { userActions } from "../Features/User/UserSlice";
+import { storage } from "../Utils/Storage";
 
 export function useAuth() {
-  const { setTokenObject, setIsAuthenticated, setStep } = useAuthStore();
+  const { login } = userActions;
+  const dis = useAppDispatch();
   const navigate = useNavigate();
   const [authLoading, setAuthLoading] = useState(true);
 
-  // Check if token is present and set user details in the store when page loads
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      // decode token and set in the store
-      const decodedToken = jwtDecode(token);
-      setTokenObject(decodedToken);
-      setIsAuthenticated(true);
-      API.defaults.headers["Authorization"] = `Bearer ${token}`;
-      setStep(1);
+    const accessToken = storage.getItem("accessToken");
+    const refreshToken = storage.getItem("refreshToken");
+    if (accessToken && refreshToken) {
+      let tokenObject = "";
+      try {
+        tokenObject = jwtDecode(accessToken);
+      } catch (error) {
+        dis(userActions.logout());
+        navigate("/Login", { replace: true });
+        return;
+      }
+
+      dis(login({ accessToken, refreshToken, tokenObject }));
       navigate("/", { replace: true });
     } else {
       localStorage.removeItem("token");
