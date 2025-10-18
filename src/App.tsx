@@ -4,7 +4,7 @@ import Index from "./Pages/Index/Index";
 import { Toaster } from "react-hot-toast";
 import AuthWrapper from "./Components/AuthWrapper/AuthWrapper";
 import { BrowserRouter } from "react-router";
-import AppRoutes from "./Pages/Index/AppRoutes";
+import AppRoutes from "./Pages/AppRoutes/AppRoutes";
 
 export default function App() {
   return (
@@ -12,10 +12,10 @@ export default function App() {
       <div className="min-h-screen">
         <Provider store={store}>
           <BrowserRouter>
-            <AuthWrapper>
-              <AppRoutes />
-              <Toaster />
-            </AuthWrapper>
+            {/*  <AuthWrapper> */}
+            <AppRoutes />
+            <Toaster />
+            {/*   </AuthWrapper> */}
           </BrowserRouter>
         </Provider>
       </div>
